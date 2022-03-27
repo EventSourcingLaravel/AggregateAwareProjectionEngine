@@ -7,11 +7,12 @@ namespace Robertbaelde\ProjectionEngine;
 use EventSauce\EventSourcing\AggregateRootId;
 use EventSauce\EventSourcing\Message;
 use EventSauce\EventSourcing\MessageDispatcher;
+use EventSauce\EventSourcing\MessageRepository;
 
 class ProjectionEngine implements ProjectionEngineInterface
 {
     public function __construct(
-        protected ReplayMessageRepository $messages,
+        protected MessageRepository $messages,
         protected ProjectionEngineStateRepository $state,
         protected ProjectionEngineLockRepository $lock,
         protected MessageDispatcher $dispatcher
@@ -59,10 +60,5 @@ class ProjectionEngine implements ProjectionEngineInterface
     private function passMessageToConsumer(Message ...$messages) : void
     {
         $this->dispatcher->dispatch(...$messages);
-    }
-
-    private function makeSureMessagesAreInOrder()
-    {
-        // todo
     }
 }

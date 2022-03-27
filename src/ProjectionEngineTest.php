@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Robertbaelde\ProjectionEngine;
 
 use EventSauce\EventSourcing\Header;
+use EventSauce\EventSourcing\InMemoryMessageRepository;
 use EventSauce\EventSourcing\Message;
+use EventSauce\EventSourcing\MessageRepository;
 use EventSauce\EventSourcing\SynchronousMessageDispatcher;
 use PHPUnit\Framework\TestCase;
 use Robertbaelde\ProjectionEngine\Stubs\AggregateRootIdStub;
@@ -17,12 +19,12 @@ use Robertbaelde\ProjectionEngine\Stubs\MessageDispatcherThatResetsState;
 
 class ProjectionEngineTest extends TestCase
 {
-    private InMemoryReplayMessageRepository $messageRepository;
+    private MessageRepository $messageRepository;
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->messageRepository = new InMemoryReplayMessageRepository();
+        $this->messageRepository = new InMemoryMessageRepository();
     }
 
     /** @test */
@@ -111,7 +113,7 @@ class ProjectionEngineTest extends TestCase
     public function when_the_consumer_implements_the_resets_state_before_replay_interface_it_gets_called_to_reset_state_on_replay(): void
     {
         $aggregateRootId = AggregateRootIdStub::fromString('aggregate_1');
-        $messageRepository = new InMemoryReplayMessageRepository();
+        $messageRepository = new InMemoryMessageRepository();
         $projectionEngineInMemoryRepo = new InMemoryProjectionEngineStateRepository('test-consumer');
         $dispatcher = new MessageDispatcherThatResetsState(new EventConsumerStub());
 
