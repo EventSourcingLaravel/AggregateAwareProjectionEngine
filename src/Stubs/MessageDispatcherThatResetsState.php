@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Robertbaelde\ProjectionEngine\AggregateAwareProjections\Stubs;
+namespace Robertbaelde\ProjectionEngine\Stubs;
 
 use EventSauce\EventSourcing\AggregateRootId;
 use EventSauce\EventSourcing\Message;
 use EventSauce\EventSourcing\MessageDispatcher;
-use Robertbaelde\ProjectionEngine\AggregateAwareProjections\ResetsStateBeforeReplay;
+use Robertbaelde\ProjectionEngine\ResetsStateBeforeReplay;
 
 class MessageDispatcherThatResetsState implements MessageDispatcher, ResetsStateBeforeReplay
 {

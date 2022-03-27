@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Robertbaelde\ProjectionEngine\AggregateAwareProjections;
+namespace Robertbaelde\ProjectionEngine;
 
 interface ProjectionEngineStateRepository
 {
