@@ -17,13 +17,14 @@ jobs:
         composer-flags: [ '' ]
         stability: ['prefer-lowest', 'prefer-stable']
         experimental: [false]
+        eventsauce: ['^1.0', '^2.0', '^3.0']
         include:
           - php: 8.1
             stability: 'prefer-stable'
             composer-flags: '--ignore-platform-reqs'
             experimental: false
 
-    name: PHP ${{ matrix.php }} - ${{ matrix.stability }}
+    name: PHP ${{ matrix.php }} - ${{ matrix.stability }} - Eventsauce ${{ matrix.eventsauce }}
 
     steps:
       - name: Checkout code
@@ -47,6 +48,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-composer-${{ matrix.stability }}-
             ${{ runner.os }}-composer-
+
+      - name: Install specific eventsauce version
+        run: |
+          composer require "eventsauce/eventsauce=${{ matrix.eventsauce }}" -w --prefer-dist --no-interaction --no-update
 
       - name: Install dependencies
         run: composer update --${{ matrix.stability }} ${{ matrix.composer-flags }} --prefer-dist --no-interaction --no-progress

@@ -4,7 +4,7 @@
     "type": "library",
     "require": {
         "php": "^8.1",
-        "eventsauce/eventsauce": "^1|^2",
+        "eventsauce/eventsauce": "^1|^2|^3",
         "eventsauce/backoff": "^1.1"
     },
     "require-dev": {
